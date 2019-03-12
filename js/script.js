@@ -1,54 +1,39 @@
-'use strict';
+"use strict";
 
 var playerMoveChoice;
-var computerMoveChoice;
 
 // providing game's output
-var output = document.getElementById('output');
-var displayText = function(text){
-    output.insertAdjacentHTML('afterbegin', 'result: ' + text + '<br>');
-}
-displayText('Game result is ' +playerMoveChoice);
+var output = document.getElementById("output");
+var displayText = function(text) {
+  output.insertAdjacentHTML("afterbegin", "result: " + text + "<br>");
+};
+displayText("Game result is " + playerMoveChoice);
 
 // Computer move
-var computerMove = function(){
-    var computerMoveRandom = Math.floor(Math.random() * 3) + 1;
-    switch(computerMoveRandom) {
-        case 1:
-            computerMoveChoice = 'rock';
-            return computerMoveChoice; 
-        case 2:
-            computerMoveChoice = 'paper';
-            return computerMoveChoice;
-        case 3:
-            computerMoveChoice = 'scissors';
-            return computerMoveChoice;
-    }
-}
+var computerMove = function() {
+  var computerMoveRandom = Math.floor(Math.random() * 3) + 1;
+  switch (computerMoveRandom) {
+    case 1:
+      return "rock";
+    case 2:
+      return "paper";
+    case 3:
+      return "scissors";
+  }
+};
+
+var playerMove = function(playerMove) {
+  var playerMoveChoice = playerMove;
+  var computerMoveChoice = computerMove();
+  displayText("Computer has played " + computerMoveChoice);
+  displayText("You have played " + playerMoveChoice);
+};
 
 // Buttons allowing player to chose a move
-var playerMoveRock = document.getElementById('playerMove_rock'),
-playerMovePaper = document.getElementById('playerMove_paper'),
-playerMoveScissors = document.getElementById('playerMove_scissors');
+var playerMoveRock = document.getElementById("playerMove_rock"),
+  playerMovePaper = document.getElementById("playerMove_paper"),
+  playerMoveScissors = document.getElementById("playerMove_scissors");
 
-playerMoveRock.addEventListener('click', function() {
-    playerMoveChoice = 'rock';
-    computerMove();
-    displayText('Computer has played ' + computerMoveChoice);
-    displayText('You have played ' + playerMoveChoice);
-});
-playerMovePaper.addEventListener('click', function() {
-    playerMoveChoice = 'paper'; 
-    computerMove();
-    displayText('Computer has played ' + computerMoveChoice);
-    displayText('You have played ' + playerMoveChoice);
-});
-playerMoveScissors.addEventListener('click', function() {
-    playerMoveChoice = 'scissors';
-    computerMove();
-    displayText('Computer has played ' + computerMoveChoice);
-    displayText('You have played ' + playerMoveChoice);
-});
-
-
-
+playerMoveRock.addEventListener("click", playerMove("rock"));
+playerMovePaper.addEventListener("click", playerMove("paper"));
+playerMoveScissors.addEventListener("click", playerMove("scissors"));
