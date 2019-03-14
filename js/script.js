@@ -1,7 +1,7 @@
 "use strict";
 var roundsNumber;
 var roundsPlayed = 0;
-var gameActive = "true";
+var gameActive = true;
 
 // providing game's output
 var output = document.getElementById("output");
@@ -22,6 +22,11 @@ var displayResult = function(playerWins, computerWins) {
 };
 displayResult(playerWins, computerWins);
 
+// when game is no longer active
+function inactiveGameDisplay() {
+  displayText("Game over, please press the new game button!");
+}
+
 // Buttons allowing player to chose a move
 var playerMoveRock = document.getElementById("playerMove_rock"),
   playerMovePaper = document.getElementById("playerMove_paper"),
@@ -29,13 +34,25 @@ var playerMoveRock = document.getElementById("playerMove_rock"),
 
 // invoking playerMove function with a payer's choice parameter
 playerMoveRock.addEventListener("click", function() {
-  playerMove("rock");
+  if (gameActive) {
+    playerMove("rock");
+  } else {
+    inactiveGameDisplay();
+  }
 });
 playerMovePaper.addEventListener("click", function() {
-  playerMove("paper");
+  if (gameActive) {
+    playerMove("paper");
+  } else {
+    inactiveGameDisplay();
+  }
 });
 playerMoveScissors.addEventListener("click", function() {
-  playerMove("scissors");
+  if (gameActive) {
+    playerMove("scissors");
+  } else {
+    inactiveGameDisplay();
+  }
 });
 
 // Computer move function randomizing the move
@@ -48,11 +65,6 @@ function computerMove() {
       return "paper";
     case 3:
       return "scissors";
-  }
-}
-// Checking the number of rounds
-function countingRounds(roundsNumber) {
-  if (Number.isInteger(roundsNumber) && roundsNumber > 0) {
   }
 }
 
@@ -77,19 +89,47 @@ function playerMove(playerMoveChosen) {
     displayResult(playerWins, computerWins);
   }
   roundsPlayed++;
-  countingRounds(roundsNumber);
-  displayText(
-    "Round " +
-      roundsPlayed +
-      ": <strong>" +
-      gameResult +
-      "</strong> won. You played <strong>" +
-      playerMoveChoice +
-      "</strong>, computer played <strong>" +
-      computerMoveChoice +
-      "</strong>"
-  );
+  if (playerWins === roundsNumber) {
+    displayText(
+      "YOU WON THE ENTIRE GAME!!! Round " +
+        roundsPlayed +
+        ": <strong>" +
+        gameResult +
+        "</strong> won. You played <strong>" +
+        playerMoveChoice +
+        "</strong>, computer played <strong>" +
+        computerMoveChoice +
+        "</strong> "
+    );
+    gameActive = false;
+  } else if (computerWins === roundsNumber) {
+    displayText(
+      "COMPUTER WON THE ENTIRE GAME!!! Round " +
+        roundsPlayed +
+        ": <strong>" +
+        gameResult +
+        "</strong> won. You played <strong>" +
+        playerMoveChoice +
+        "</strong>, computer played <strong>" +
+        computerMoveChoice +
+        "</strong> "
+    );
+    gameActive = false;
+  } else {
+    displayText(
+      "Round " +
+        roundsPlayed +
+        ": <strong>" +
+        gameResult +
+        "</strong> won. You played <strong>" +
+        playerMoveChoice +
+        "</strong>, computer played <strong>" +
+        computerMoveChoice +
+        "</strong>"
+    );
+  }
 }
+
 // new game button starting a game consisting of a number of game provided by player
 var newGame = document.getElementById("newGame"),
   rounds = document.getElementById("rounds");
@@ -97,6 +137,11 @@ var newGame = document.getElementById("newGame"),
 newGame.addEventListener("click", function() {
   playerWins = 0;
   computerWins = 0;
+  roundsPlayed = 0;
+  displayResult(playerWins, computerWins);
+  displayText(
+    "Here you will see the results of each play against the computer."
+  );
   var userInput = window.prompt("How many rounds do you want to play?");
   if (userInput === null || userInput === "") {
     rounds.innerHTML = "You didn't provide a value";
@@ -106,8 +151,9 @@ newGame.addEventListener("click", function() {
     rounds.innerHTML =
       "The value you provided is not a possible number of rounds";
   } else {
+    gameActive = true;
     roundsNumber = parseInt(userInput);
     rounds.innerHTML =
-      "The game will end after <strong>" + roundsNumber + "</strong> rounds";
+      "The game will end after <strong>" + roundsNumber + "</strong> wins";
   }
 });
