@@ -1,4 +1,7 @@
 "use strict";
+var roundsNumber;
+var roundsPlayed = 0;
+var gameActive = "true";
 
 // providing game's output
 var output = document.getElementById("output");
@@ -47,6 +50,11 @@ function computerMove() {
       return "scissors";
   }
 }
+// Checking the number of rounds
+function countingRounds(roundsNumber) {
+  if (Number.isInteger(roundsNumber) && roundsNumber > 0) {
+  }
+}
 
 // game mechanics invoked after player's choice
 function playerMove(playerMoveChosen) {
@@ -68,8 +76,12 @@ function playerMove(playerMoveChosen) {
     computerWins++;
     displayResult(playerWins, computerWins);
   }
+  roundsPlayed++;
+  countingRounds(roundsNumber);
   displayText(
-    "<strong>" +
+    "Round " +
+      roundsPlayed +
+      ": <strong>" +
       gameResult +
       "</strong> won. You played <strong>" +
       playerMoveChoice +
@@ -78,3 +90,24 @@ function playerMove(playerMoveChosen) {
       "</strong>"
   );
 }
+// new game button starting a game consisting of a number of game provided by player
+var newGame = document.getElementById("newGame"),
+  rounds = document.getElementById("rounds");
+
+newGame.addEventListener("click", function() {
+  playerWins = 0;
+  computerWins = 0;
+  var userInput = window.prompt("How many rounds do you want to play?");
+  if (userInput === null || userInput === "") {
+    rounds.innerHTML = "You didn't provide a value";
+  } else if (isNaN(userInput)) {
+    rounds.innerHTML = "The value you provided is not a number";
+  } else if (parseInt(userInput) <= 0) {
+    rounds.innerHTML =
+      "The value you provided is not a possible number of rounds";
+  } else {
+    roundsNumber = parseInt(userInput);
+    rounds.innerHTML =
+      "The game will end after <strong>" + roundsNumber + "</strong> rounds";
+  }
+});

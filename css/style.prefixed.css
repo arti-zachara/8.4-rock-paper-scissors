@@ -10,17 +10,18 @@
   background-size: cover;
   background-position: center;
   margin: 0 auto;
-  h1 {
-    width: 50vw;
-    display: block;
-    float: right;
-    background-color: rgba(160, 153, 147, 0.521);
-    color: white;
-    font-family: "Open sans", sans-serif;
-    font-size: 40px;
-    margin-top: 10vh;
-    padding: 20px 40px;
-  }
+}
+
+.hero h1 {
+  width: 50vw;
+  display: block;
+  float: right;
+  background-color: rgba(160, 153, 147, 0.521);
+  color: white;
+  font-family: "Open sans", sans-serif;
+  font-size: 40px;
+  margin-top: 10vh;
+  padding: 20px 40px;
 }
 
 .container {
@@ -37,12 +38,15 @@
   padding: 5px 20px;
   margin: 10px;
 }
+
 #result {
   font-size: 40px;
-  color: rgb(100, 93, 86);
+  color: #645d56;
 }
+
 #newGame {
   background-color: black;
   color: white;
   font-size: 20px;
 }
+/*# sourceMappingURL=style.prefixed.css.map */
