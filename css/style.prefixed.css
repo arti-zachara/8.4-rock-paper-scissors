@@ -18,7 +18,7 @@
   float: right;
   background-color: rgba(160, 153, 147, 0.521);
   color: white;
-  font-family: 'Open sans', sans-serif;
+  font-family: "Open sans", sans-serif;
   font-size: 40px;
   margin-top: 10vh;
   padding: 20px 40px;
@@ -27,14 +27,26 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 10px 0;
   width: 80%;
-  font-family: 'Open sans', sans-serif;
+  font-family: "Open sans", sans-serif;
   text-align: center;
 }
 
 .btn {
   font-size: 40px;
   padding: 5px 20px;
+  margin: 10px;
+}
+
+#result {
+  font-size: 40px;
+  color: #645d56;
+}
+
+#newGame {
+  background-color: black;
+  color: white;
+  font-size: 20px;
 }
 /*# sourceMappingURL=style.prefixed.css.map */
