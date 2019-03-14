@@ -1,12 +1,23 @@
 "use strict";
 
-var gameResult;
-
 // providing game's output
 var output = document.getElementById("output");
-var displayText = function(text) {
-  output.insertAdjacentHTML("afterbegin", text + "<br>");
+function displayText(text) {
+  output.innerHTML = text + "<br>";
+}
+// providing game's result
+var computerWins = 0,
+  playerWins = 0,
+  result = document.getElementById("result");
+var displayResult = function(playerWins, computerWins) {
+  result.innerHTML =
+    "<strong>" +
+    playerWins +
+    "</strong> - <strong>" +
+    computerWins +
+    "</strong>";
 };
+displayResult(playerWins, computerWins);
 
 // Buttons allowing player to chose a move
 var playerMoveRock = document.getElementById("playerMove_rock"),
@@ -41,16 +52,21 @@ function computerMove() {
 function playerMove(playerMoveChosen) {
   var playerMoveChoice = playerMoveChosen;
   var computerMoveChoice = computerMove();
+  var gameResult;
   if (playerMoveChoice === computerMoveChoice) {
     gameResult = "Noone";
   } else if (
     (playerMoveChoice === "paper" && computerMoveChoice === "rock") ||
-    (playerMoveChoice === "rock" && computerMoveChoice === "scissor") ||
-    (playerMoveChoice === "scissor" && computerMoveChoice === "paper")
+    (playerMoveChoice === "rock" && computerMoveChoice === "scissors") ||
+    (playerMoveChoice === "scissors" && computerMoveChoice === "paper")
   ) {
     gameResult = "You";
+    playerWins++;
+    displayResult(playerWins, computerWins);
   } else {
     gameResult = "Computer";
+    computerWins++;
+    displayResult(playerWins, computerWins);
   }
   displayText(
     "<strong>" +
