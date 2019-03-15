@@ -68,26 +68,28 @@ function computerMove() {
   }
 }
 
+// determining who won the round
+function determiningWinner(playerMoveChosen, computerMoveChoice) {
+  if (playerMoveChosen === computerMoveChoice) {
+    return "Noone";
+  } else if (
+    (playerMoveChosen === "paper" && computerMoveChoice === "rock") ||
+    (playerMoveChosen === "rock" && computerMoveChoice === "scissors") ||
+    (playerMoveChosen === "scissors" && computerMoveChoice === "paper")
+  ) {
+    playerWins++;
+    return "You";
+  } else {
+    computerWins++;
+    return "Computer";
+  }
+}
+
 // game mechanics invoked after player's choice
 function playerMove(playerMoveChosen) {
-  var playerMoveChoice = playerMoveChosen;
   var computerMoveChoice = computerMove();
-  var gameResult;
-  if (playerMoveChoice === computerMoveChoice) {
-    gameResult = "Noone";
-  } else if (
-    (playerMoveChoice === "paper" && computerMoveChoice === "rock") ||
-    (playerMoveChoice === "rock" && computerMoveChoice === "scissors") ||
-    (playerMoveChoice === "scissors" && computerMoveChoice === "paper")
-  ) {
-    gameResult = "You";
-    playerWins++;
-    displayResult(playerWins, computerWins);
-  } else {
-    gameResult = "Computer";
-    computerWins++;
-    displayResult(playerWins, computerWins);
-  }
+  var gameResult = determiningWinner(playerMoveChosen, computerMoveChoice);
+  displayResult(playerWins, computerWins);
   roundsPlayed++;
   if (playerWins === roundsNumber) {
     displayText(
@@ -96,7 +98,7 @@ function playerMove(playerMoveChosen) {
         ": <strong>" +
         gameResult +
         "</strong> won. You played <strong>" +
-        playerMoveChoice +
+        playerMoveChosen +
         "</strong>, computer played <strong>" +
         computerMoveChoice +
         "</strong> "
@@ -109,7 +111,7 @@ function playerMove(playerMoveChosen) {
         ": <strong>" +
         gameResult +
         "</strong> won. You played <strong>" +
-        playerMoveChoice +
+        playerMoveChosen +
         "</strong>, computer played <strong>" +
         computerMoveChoice +
         "</strong> "
@@ -122,7 +124,7 @@ function playerMove(playerMoveChosen) {
         ": <strong>" +
         gameResult +
         "</strong> won. You played <strong>" +
-        playerMoveChoice +
+        playerMoveChosen +
         "</strong>, computer played <strong>" +
         computerMoveChoice +
         "</strong>"
